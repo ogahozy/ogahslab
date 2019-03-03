@@ -1,0 +1,40 @@
+
+<table class="table table-hover">
+{% for comment in comments %}
+	<tr>
+            <td width="40px">
+                <a href="{{ url_for('main.user', username=comment.author.username) }}">
+                    <img src="{{ comment.author.avatar(40) }}" />
+		</a>
+                <a href="{{ url_for('main.user', username=comment.author.username) }}">
+                    {{ comment.author.username }}</a>
+		made this comment :{{ moment(comment.timestamp).fromNow() }}
+    
+	<div class="comment-content" >
+	     {% if comment.disabled %}
+                <p><i>This comment has been disabled by a moderator.</i></p>
+                {% endif %}
+                {% if moderate or not comment.disabled %}
+                    {% if comment.body_html %}
+                        {{ comment.body_html | safe }}
+                   {% else %}
+                        {{ comment.body }}	
+                    {% endif %}
+                {% endif %}
+        </div>
+
+		<br>
+           {% if moderate %}
+                <br>
+                {% if comment.disabled %}
+  <a class="btn btn-default btn-xs" href="{{ url_for('.moderate_enable', id=comment.id, page=page)}}">Enable</a>
+                {% else %}
+  <a class="btn btn-danger btn-xs"href="{{ url_for('.moderate_disable', id=comment.id, page=page)}}">Disable</a>
+                {% endif %}
+                {% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+
+

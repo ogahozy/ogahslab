@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+    {% block title %}Ogahslab-Storage{% endblock %}
+
+    {% block head %}
+    {{ super()}}
+    <style type="text/css">
+    body{ background-color:lightViolet;
+    }
+    h1,h2,h3,h4,h5,p{text-align:justify; color:Black; font-family: "Times New Roman",Times,serif;
+    }
+    a {
+                font-weight: bold;
+                color: #ff982c;
+                text-decoration: none;
+            }
+    
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+    {% endblock %}
+
+{% block app_content %}
+    <div class="page-header">
+         <h1>Ogahslab-Storage</h1>
+    </div>
+
+<form action="{{ url_for('main.upload') }}" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="file" name="file" id="fileToUpload"> <br>
+    <input type="submit" value="Upload File" name="submit">
+</form>
+
+<hr>
+
+<h3>List of files available on the storage:</h3>
+
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Size</th>
+    </thead>
+    <tbody>
+        {% for obj in storage %}
+        <tr>
+            <td><a href="{{ url_for('main.view', object_name=obj.name) }}">{{ obj.name }}</a></td>
+            <td>{{ obj.size }} bytes</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock %}

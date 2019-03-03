@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Ogahslab-Blog Page{% endblock %}
+
+{% block head %}
+{{ super()}}
+<style type="text/css">
+body{ background-color:lightViolet;
+}
+h1,h2,h3,h4,h5,p{text-align:justify; color:Black; font-family: "Times New Roman",Times,serif;
+}
+a {
+            font-weight: bold;
+            color: #ff982c;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+</style>
+{% endblock %}
+
+
+{% block app_content %}
+<div class="page-header">
+     <h3><b>Hi, Welcome to Our Blog Page!</b></h3>
+   <p> <h4> We will be posting tutorials inline this our areas of interest. Most of our tutorials will be in series.A link from one tutorial to the next will always be displaced so that our reader can followup adequately.</h4></p> 
+</div>
+
+<div class="post-body">
+	{% for post in posts %} 
+  <h4><a href="{{ url_for('main.detail', slug=post.slug)}}">{{ post.title }}</a></h3>
+     <ul class="nav nav-tabs">
+        <li><p>Created by  {{ post.author.username }}:{{ moment(post.timestamp).fromNow() }}</p></li>
+     </ul>
+    {% endfor %}
+</div>
+
+    <nav aria-label="...">
+        <ul class="pager">
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span> Newer posts
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    Older posts <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}

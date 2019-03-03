@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+{% block title %}Ogahs-Blog Page{% endblock %}
+
+{% block app_content %}
+<div class="page-header">
+     <h3><b>Hi, Welcome to Our Blog Page!</b></h3>
+</div>
+<div class="page-header">
+    <h4><b>Comment Moderation</b></h4>
+
+{% set moderate = True %}
+{% include '_comments.html' %}
+</div>
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.moderate') }}
+</div>
+{% endif %}
+
+{#
+<nav aria-label="...">
+        <ul class="pager">
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span> Newer posts
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+		Older posts <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+#}
+{% endblock %}
+

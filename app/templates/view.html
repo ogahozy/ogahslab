@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Ogahslab-Storage{% endblock %}
+
+{% block head %}
+{{ super()}}
+<style type="text/css">
+body{ background-color:lightViolet;
+}
+h1,h2,h3,h4,h5,p{text-align:justify; color:Black; font-family: "Times New Roman",Times,serif;
+}
+a {
+            font-weight: bold;
+            color: #ff982c;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+</style>
+{% endblock %}
+
+{% block app_content %}
+
+<div class="page-header">
+    <h1>View Storage Folder</h1>
+</div>
+
+<a href="{{ url_for('main.store') }}">Back</a>
+<br> <br>
+
+Name: {{ obj.name }} <br><br>
+Size: {{ obj.size }} bytes <br><br>
+
+Short url: {{ obj.short_url }} <br><br>
+
+View file: <a href="{{ obj.url }}">{{ obj.url }}</a> <br><br>
+
+{% set download_url = obj.download_url() %}
+Download: <a href="{{ download_url }}">{{ download_url }}</a> <br><br>
+{% endblock %}
