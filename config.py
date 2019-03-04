@@ -20,6 +20,7 @@ class Config(object):
     ADMINS = ['tedi242010@gmail.com']
     LANGUAGES = ['en', 'es']
     MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
+    LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
     ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
     POSTS_PER_PAGE = 10
     COMMENTS_PER_PAGE = 10
