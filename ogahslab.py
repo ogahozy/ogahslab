@@ -13,6 +13,6 @@ def make_shell_context():
             #,'Message': Message,
             #'Notification': Notification}
  
-@pp.cli.command()
+@app.cli.command()
 def deploy():
     Role.insert_roles()
