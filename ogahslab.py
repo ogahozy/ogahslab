@@ -1,3 +1,4 @@
+import os
 import sys
 import click
 from flask_migrate import Migrate, upgrade
