@@ -146,13 +146,13 @@ class PaginatedAPIMixin(object):
 
 followers = db.Table(
     'followers',
-    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+    db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
 )
 
 
 class User(UserMixin,PaginatedAPIMixin, db.Model):
-    __tablename__ = 'user'
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -182,7 +182,7 @@ class User(UserMixin,PaginatedAPIMixin, db.Model):
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
         if self.role is None:
-            if self.email == current_app.config['FLASKY_ADMIN']:
+            if self.email == current_app.config['WEB_ADMIN']:
                 self.role = Role.query.filter_by(name='Administrator').first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
@@ -208,17 +208,17 @@ class User(UserMixin,PaginatedAPIMixin, db.Model):
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
             digest, size)
 
-    def follow(self, user):
-        if not self.is_following(user):
-            self.followed.append(user)
+    def follow(self, users):
+        if not self.is_following(users):
+            self.followed.append(users)
 
-    def unfollow(self, user):
-        if self.is_following(user):
-            self.followed.remove(user)
+    def unfollow(self, users):
+        if self.is_following(users):
+            self.followed.remove(users)
 
-    def is_following(self, user):
+    def is_following(self, users):
         return self.followed.filter(
-            followers.c.followed_id == user.id).count() > 0
+            followers.c.followed_id == users.id).count() > 0
 
     def followed_posts(self):
         followed = Post.query.join(
@@ -296,10 +296,10 @@ class User(UserMixin,PaginatedAPIMixin, db.Model):
 
     @staticmethod
     def check_token(token):
-        user = User.query.filter_by(token=token).first()
-        if user is None or user.token_expiration < datetime.utcnow():
+        users = User.query.filter_by(token=token).first()
+        if user is None or users.token_expiration < datetime.utcnow():
             return None
-        return user
+        return users
 
 
 
@@ -383,7 +383,7 @@ class Comment(db.Model):
     #path = db.Column(db.Text, index=True)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     disabled = db.Column(db.Boolean)
-    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     #parent_id = db.Column(db.Integer,db.ForeignKey('comment.id'))
     #replies = db.relationship('Comment', backref = db.backref('parent',remote_side=[id]), lazy='dynamic')
