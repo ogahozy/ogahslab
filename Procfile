@@ -1,2 +1,1 @@
-web: flask translate compile; gunicorn ogahslab:app
-
+web: flask db upgrade;flask translate compile; gunicorn ogahslab:app
