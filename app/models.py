@@ -208,17 +208,17 @@ class User(UserMixin,PaginatedAPIMixin, db.Model):
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
             digest, size)
 
-    def follow(self, users):
-        if not self.is_following(users):
-            self.followed.append(users)
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
 
-    def unfollow(self, users):
-        if self.is_following(users):
-            self.followed.remove(users)
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
 
-    def is_following(self, users):
+    def is_following(self, user):
         return self.followed.filter(
-            followers.c.followed_id == users.id).count() > 0
+            followers.c.followed_id == user.id).count() > 0
 
     def followed_posts(self):
         followed = Post.query.join(
@@ -296,10 +296,10 @@ class User(UserMixin,PaginatedAPIMixin, db.Model):
 
     @staticmethod
     def check_token(token):
-        users = User.query.filter_by(token=token).first()
-        if user is None or users.token_expiration < datetime.utcnow():
+        user = User.query.filter_by(token=token).first()
+        if user is None or user.token_expiration < datetime.utcnow():
             return None
-        return users
+        return user
 
 
 
