@@ -16,8 +16,8 @@ class Config(object):
         ['true', 'on', '1']
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
-    ADMINS = ['tedi242010@gmail.com']
+    WEB_ADMIN = os.environ.get('WEB_ADMIN')
+    ADMINS = ['']
     LANGUAGES = ['en', 'es']
     MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
