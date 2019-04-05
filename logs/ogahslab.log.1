@@ -1,0 +1,126 @@
+2019-03-23 15:16:53,861 ERROR: Exception on /store [GET] [in /home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/ogah/ogahslabz/app/decorators.py", line 13, in decorated_function
+    return f(*args, **kwargs)
+  File "/home/ogah/ogahslabz/app/main/routes.py", line 113, in store
+    return render_template("storage.html", storage=storage)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/templating.py", line 134, in render_template
+    context, ctx.app)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/templating.py", line 116, in _render
+    rv = template.render(context)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "/home/ogah/ogahslabz/app/templates/storage.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/ogah/ogahslabz/app/templates/base.html", line 1, in top-level template code
+    {% extends 'bootstrap/base.html' %}
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 4, in block "doc"
+    {%- block html %}
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 20, in block "html"
+    {% block body -%}
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 23, in block "body"
+    {% block content -%}
+  File "/home/ogah/ogahslabz/app/templates/base.html", line 88, in block "content"
+    {% block app_content %}{% endblock %}
+  File "/home/ogah/ogahslabz/app/templates/storage.html", line 44, in block "app_content"
+    {% for obj in storage %}
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask_cloudy.py", line 195, in __iter__
+    for obj in self.container.iterate_objects():
+AttributeError: 'NoneType' object has no attribute 'iterate_objects'
+2019-03-23 15:23:29,588 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 15:32:15,073 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 15:38:50,862 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 16:16:49,525 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 16:38:13,597 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 16:44:55,347 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 16:50:26,603 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 17:06:23,763 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 17:14:41,035 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 17:22:19,230 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 17:22:37,414 ERROR: Exception on /drafts [GET] [in /home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/ogah/ogahslabz/app/main/routes.py", line 57, in drafts
+    post = Post.drafts().order_by(Post.timestamp.desc()).paginate(
+  File "/home/ogah/ogahslabz/app/models.py", line 367, in drafts
+    return Post.select().where(Post.published == False)
+AttributeError: type object 'Post' has no attribute 'select'
+2019-03-23 17:22:58,244 ERROR: Exception on /drafts [GET] [in /home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/ogah/ogahslabz/app/main/routes.py", line 57, in drafts
+    post = Post.drafts().order_by(Post.timestamp.desc()).paginate(
+  File "/home/ogah/ogahslabz/app/models.py", line 367, in drafts
+    return Post.select().where(Post.published == False)
+AttributeError: type object 'Post' has no attribute 'select'
+2019-03-23 18:31:54,952 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 18:32:11,119 ERROR: Exception on /drafts [GET] [in /home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/ogah/ogahslabz/app/main/routes.py", line 57, in drafts
+    post = Post.drafts().order_by(Post.timestamp.desc()).paginate(
+  File "/home/ogah/ogahslabz/app/models.py", line 371, in drafts
+    return Post.query.filter_by(Post.published == False)
+TypeError: filter_by() takes 1 positional argument but 2 were given
+2019-03-23 18:35:35,888 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]

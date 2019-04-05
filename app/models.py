@@ -4,13 +4,16 @@ from datetime import datetime, timedelta
 from hashlib import md5
 from time import time
 #import json
-from flask import Flask, current_app,url_for
+from flask import Flask, current_app,url_for,Markup
 from flask_login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 from markdown import markdown
+from markdown.extensions.codehilite import CodeHiliteExtension
+from markdown.extensions.extra import ExtraExtension
+from micawber import parse_html
 import bleach
-from app import db, login
+from app import db, login,providers
 from slugify import slugify
 from app.search import add_to_index, remove_from_index, query_index
 
@@ -35,7 +38,6 @@ class SearchableMixin(object):
             'delete': list(session.deleted)
         }
 
-    
     @classmethod
     def after_commit(cls, session):
         for obj in session._changes['add']:
@@ -53,7 +55,6 @@ class SearchableMixin(object):
     def reindex(cls):
         for obj in cls.query:
             add_to_index(cls.__tablename__, obj)
-
 
 db.event.listen(db.session, 'before_commit', SearchableMixin.before_commit)
 db.event.listen(db.session, 'after_commit', SearchableMixin.after_commit)
@@ -144,6 +145,7 @@ class PaginatedAPIMixin(object):
         return data
 
 
+
 followers = db.Table(
     'followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
@@ -169,15 +171,16 @@ class User(UserMixin,PaginatedAPIMixin, db.Model):
         secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
+
     #messages_sent = db.relationship('Message',
-     #                               foreign_keys='Message.sender_id',
-      #                              backref='author', lazy='dynamic')
+    #                               foreign_keys='Message.sender_id',
+    #                              backref='author', lazy='dynamic')
     #messages_received = db.relationship('Message',
-     #                                   foreign_keys='Message.recipient_id',
-      #                                  backref='recipient', lazy='dynamic')
+    #                                   foreign_keys='Message.recipient_id',
+    #                                  backref='recipient', lazy='dynamic')
     #last_message_read_time = db.Column(db.DateTime)
     #notifications = db.relationship('Notification', backref='user',
-     #                               lazy='dynamic')
+    #                               lazy='dynamic')
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -244,18 +247,18 @@ class User(UserMixin,PaginatedAPIMixin, db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
-    """ 
-    def new_messages(self):
-        last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
-        return Message.query.filter_by(recipient=self).filter(
-            Message.timestamp > last_read_time).count()
+    
+    #def new_messages(self):
+    #   last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
+    #    return Message.query.filter_by(recipient=self).filter(
+    #        Message.timestamp > last_read_time).count()
 
-    def add_notification(self, name, data):
-        self.notifications.filter_by(name=name).delete()
-        n = Notification(name=name, payload_json=json.dumps(data), user=self)
-        db.session.add(n)
-        return n 
-        """
+    #def add_notification(self, name, data):
+    #    self.notifications.filter_by(name=name).delete()
+    #    n = Notification(name=name, payload_json=json.dumps(data), user=self)
+    #    db.session.add(n)
+    #    return n 
+        
     def to_dict(self, include_email=False):
         data = {
             'id': self.id,
@@ -327,30 +330,67 @@ class Post(SearchableMixin, db.Model):
     body = db.Column(db.Text)
     body_html = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    published = db.Column(db.Boolean, index=True)
     language = db.Column(db.String(5))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
+
 
     def __init__(self, *args, **kwargs):
         if not 'slug' in kwargs:
             kwargs['slug'] = slugify(kwargs.get('title',''))
         super().__init__(*args, **kwargs)
 
+
     def __repr__(self):
         return '<Post {}>'.format(self.body)
 
+    
+    @property
+    def html_content(self):
+        """
+        Generate HTML representation of the markdown-formatted blog entry,
+        and also convert any media URLs into rich media objects such as video
+        players or images.
+        """
+        hilite = CodeHiliteExtension(linenums=False, css_class='highlight')
+        extras = ExtraExtension()
+        markdown_content = markdown(self.body, extensions=[hilite, extras])
+        oembed_content = parse_html(
+            markdown_content,
+            providers,
+            urlize_all=True,
+            maxwidth=current_app.config['SITE_WIDTH'])
+        return Markup(oembed_content)
+
+
+    @classmethod
+    def public(cls):
+        return Post.query.filter(Post.published == True)
+
+
+    @classmethod
+    def drafts(cls):
+        return Post.query.filter(Post.published == False)
+
+"""
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
                         'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
-                        'h1', 'h2', 'h3','h4','img', 'p']
+                        'h1', 'h2', 'h3','h4','img','div', 'p','iframe','video','br','span','hr','class']
+        allowed_attrs = {'*':['class'],
+                         'a':['href','rel'],
+                         'img':['src','alt'],
+                         'iframe':['scr','name','width'],
+                         'video':['controls','height','src','width']}
         target.body_html = bleach.linkify(bleach.clean(
             markdown(value, output_format='html'),
-            tags=allowed_tags, attributes={'img':['src']}, strip=True))
+            tags=allowed_tags, attributes=allowed_attrs, strip=False))
 
 db.event.listen(Post.body, 'set', Post.on_changed_body)
 
-"""
+
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -376,36 +416,23 @@ class Notification(db.Model):
 
 class Comment(db.Model):
     __tablename__ = 'comment'
-   # _N = 3
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text)
     body_html = db.Column(db.Text)
-    #path = db.Column(db.Text, index=True)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     disabled = db.Column(db.Boolean)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
-    #parent_id = db.Column(db.Integer,db.ForeignKey('comment.id'))
-    #replies = db.relationship('Comment', backref = db.backref('parent',remote_side=[id]), lazy='dynamic')
-
-
-    #def save(self):
-     #  db.session.add(self)
-      # db.session.commit()
-       #prefix = self.parent.path + '.' if self.parent else ''
-       #self.path = prefix + '{:0{}d}'.format(self.id, self._N)
-       #db.session.commit()
-
-    #def level(self):
-     #   return len(self.path) // self._N - 1
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'code', 'em', 'i',
-                        'strong']
+                        'strong','img']
+        allowed_attrs = {'img':['src','alt']}
+
         target.body_html = bleach.linkify(bleach.clean(
             markdown(value, output_format='html'),
-            tags=allowed_tags, strip=True))
+            tags=allowed_tags, attributes=allowed_attrs,strip=True))
 db.event.listen(Comment.body, 'set', Comment.on_changed_body)
 
 

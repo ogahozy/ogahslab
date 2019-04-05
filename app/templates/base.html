@@ -7,7 +7,9 @@
 
 {% block head %}
 {{super()}}
-{#<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+{#<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/blog.min.css') }}" />
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/hilite.css') }}" />
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">#}
 {% endblock %}
@@ -39,6 +41,7 @@
 			           {%  if current_user.can(Permission.WRITE) %}
                     <li><a href="{{ url_for('main.create') }}">{{_('Create')}}</a></li>
                     <li><a href="{{ url_for('main.store') }}">{{_('Files')}}</a></li>
+                    <li><a href="{{ url_for('main.drafts') }}">{{_('Drafts')}}</a></li>
 			           {% endif %}
 			           {% if current_user.can(Permission.MODERATE) %}
                     <li><a href="{{ url_for('main.moderate') }}">Moderates</a></li>

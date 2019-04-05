@@ -5,6 +5,18 @@
 
 {% block head %}
 {{super()}} 
+<style type="text/css">
+body{ background-color:lightViolet;}
+h1,h2,h3,h4,h5,p{text-align:justify; color:Black; font-family: "Times New Roman",Times,serif;
+}
+        a {
+            font-weight: bold;
+            color: #ff982c;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+  </style>
 {{simplemde.css}}
 {{simplemde.js}}
 {% endblock %} 
@@ -26,8 +38,3 @@
 
 
 
-{#
- {% block scripts %}
-{{ super() }}
-{{ pagedown.include_pagedown() }}
-{% endblock %}#} 

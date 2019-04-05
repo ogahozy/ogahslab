@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% import "_macros.html" as macros %}
-{% block title %}Ogahs-Blog Page{% endblock %}
+{% block title %}Ogahslab-Blog Page{% endblock %}
 
 {% block head %}
 {{ super()}}
@@ -9,8 +8,7 @@ body{ background-color:lightViolet;
 }
 h1,h2,h3,h4,h5,p{text-align:justify; color:Black; font-family: "Times New Roman",Times,serif;
 }
-
-        a {
+a {
             font-weight: bold;
             color: #ff982c;
             text-decoration: none;
@@ -19,28 +17,28 @@ h1,h2,h3,h4,h5,p{text-align:justify; color:Black; font-family: "Times New Roman"
         a:hover {
             text-decoration: underline;
         }
-
-	</style>
+</style>
 {% endblock %}
+
 
 {% block app_content %}
 <div class="page-header">
      <h3><b>Hi, Welcome to Our Blog Page!</b></h3>
+   <p> <h4> We will be posting tutorials inline this our areas of interest. Most of our tutorials will be in series.A link from one tutorial to the next will always be displaced so that our reader can followup adequately.</h4></p> 
 </div>
-<div class="page-header">
-    <h4><b>Comment Moderation</b></h4>
 
-{% set moderate = True %}
-{% include '_comments.html' %}
+<div class="post-body">
+	{% for post in posts %} 
+  <h3><a href="{{ url_for('main.edit', slug=post.slug)}}">{{ post.title }}</a></h3>
+     <ul class="nav nav-tabs">
+        <li><p>Created by  {{ post.author.username }}:{{ moment(post.timestamp).fromNow() }}</p></li>
+     </ul>
+     {%else%}
+    <h3></3> <p> No entries have been created yet</p></h3>
+    {% endfor %}
 </div>
-{% if pagination %}
-<div class="pagination">
-    {{ macros.pagination_widget(pagination, '.moderate') }}
-</div>
-{% endif %}
 
-{#
-<nav aria-label="...">
+    <nav aria-label="...">
         <ul class="pager">
             <li class="previous{% if not prev_url %} disabled{% endif %}">
                 <a href="{{ prev_url or '#' }}">
@@ -49,11 +47,9 @@ h1,h2,h3,h4,h5,p{text-align:justify; color:Black; font-family: "Times New Roman"
             </li>
             <li class="next{% if not next_url %} disabled{% endif %}">
                 <a href="{{ next_url or '#' }}">
-		Older posts <span aria-hidden="true">&rarr;</span>
+                    Older posts <span aria-hidden="true">&rarr;</span>
                 </a>
             </li>
         </ul>
     </nav>
-#}
 {% endblock %}
-

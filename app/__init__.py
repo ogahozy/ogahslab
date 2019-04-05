@@ -8,6 +8,8 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
+from micawber.providers import bootstrap_basic
+from micawber.cache import Cache as embed
 from flask_pagedown import PageDown
 from flask_babel import Babel, lazy_gettext as _l
 from elasticsearch import Elasticsearch
@@ -27,13 +29,12 @@ moment = Moment()
 babel = Babel()
 pagedown = PageDown()
 simplemde = SimpleMDE()
-
+providers = bootstrap_basic(embed())
 
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-
     app.config.update({
     "STORAGE_PROVIDER": "LOCAL",
     "STORAGE_CONTAINER": "uploads",
@@ -52,8 +53,8 @@ def create_app(config_class=Config):
     pagedown.init_app(app)
     simplemde.init_app(app)
     storage.init_app(app)
-    app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
-        if app.config['ELASTICSEARCH_URL'] else None
+    #providers.init_app(app,db)
+    app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) if app.config['ELASTICSEARCH_URL'] else None
 
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)

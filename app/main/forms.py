@@ -48,7 +48,8 @@ class EditProfileAdminForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField(_l('Title'), validators=[DataRequired(_l("please enter title"))])
     post = PageDownField(_l('Write Your Post'), validators=[DataRequired()])
-    submit = SubmitField(_l('Submit Post'))
+    published = BooleanField(_l("Check this box to publish your post and uncheck to save it in draft"))
+    submit = SubmitField(_l('Create Post'))
 
 
 class SearchForm(FlaskForm):

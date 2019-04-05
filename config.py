@@ -12,8 +12,7 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = os.environ.get('MAIL_SERVER','smtp.googlemail.com')
     MAIL_PORT = int(os.environ.get('MAIL_PORT','587'))
-    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in \
-        ['true', 'on', '1']
+    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     WEB_ADMIN = os.environ.get('WEB_ADMIN')
@@ -26,3 +25,4 @@ class Config(object):
     COMMENTS_PER_PAGE = 10
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
+    SITE_WIDTH = 600

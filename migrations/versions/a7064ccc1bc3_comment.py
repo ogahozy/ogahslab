@@ -1,8 +1,8 @@
-"""roles
+"""comment
 
-Revision ID: da0f0540d6ba
+Revision ID: a7064ccc1bc3
 Revises: 
-Create Date: 2019-02-23 15:05:33.938296
+Create Date: 2019-03-23 15:14:36.061671
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'da0f0540d6ba'
+revision = 'a7064ccc1bc3'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -56,11 +56,13 @@ def upgrade():
     sa.Column('body', sa.Text(), nullable=True),
     sa.Column('body_html', sa.Text(), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
+    sa.Column('published', sa.Boolean(), nullable=True),
     sa.Column('language', sa.String(length=5), nullable=True),
     sa.Column('author_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['author_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_index(op.f('ix_post_published'), 'post', ['published'], unique=False)
     op.create_index(op.f('ix_post_timestamp'), 'post', ['timestamp'], unique=False)
     op.create_table('comment',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -83,6 +85,7 @@ def downgrade():
     op.drop_index(op.f('ix_comment_timestamp'), table_name='comment')
     op.drop_table('comment')
     op.drop_index(op.f('ix_post_timestamp'), table_name='post')
+    op.drop_index(op.f('ix_post_published'), table_name='post')
     op.drop_table('post')
     op.drop_table('followers')
     op.drop_index(op.f('ix_user_username'), table_name='user')

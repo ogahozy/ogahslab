@@ -4,7 +4,7 @@ from flask import render_template, flash, redirect, url_for, request, g, \
 from flask_login import current_user, login_required
 from flask_babel import _, get_locale
 from guess_language import guess_language
-from app import db,storage
+from app import db ,storage
 from . import main
 from app.main.forms import EditProfileForm, PostForm,\
     EditProfileAdminForm, CommentForm,SearchForm
@@ -39,7 +39,7 @@ def services():
 @main.route('/blog', methods=['GET', 'POST'])
 def blog():
     page = request.args.get('page', 1, type=int)
-    post = Post.query.order_by(Post.timestamp.desc()).paginate(
+    post = Post.public().order_by(Post.timestamp.desc()).paginate(
         page, current_app.config['POSTS_PER_PAGE'], False)
     next_url = url_for('main.blog', page=post.next_num) \
         if post.has_next else None
@@ -50,6 +50,22 @@ def blog():
                            next_url=next_url, prev_url=prev_url)
 
 
+@main.route('/drafts')
+@login_required
+def drafts():
+    page = request.args.get('page', 1, type=int)
+    post = Post.drafts().order_by(Post.timestamp.desc()).paginate(
+        page, current_app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('main.drafts', page=post.next_num) \
+        if post.has_next else None
+    prev_url = url_for('main.drafts', page=post.prev_num) \
+        if post.has_prev else None
+    posts = post.items
+    return render_template('drafts.html', title=_('Blog'), posts=posts,
+                           next_url=next_url, prev_url=prev_url)
+
+
+
 @main.route('/create/', methods=['GET', 'POST'])
 @login_required
 def create():
@@ -58,13 +74,17 @@ def create():
         language = guess_language(form.post.data)
         if language == 'UNKNOWN' or len(language) > 5:
             language = ''
-        post = Post( body=form.post.data, title=form.title.data,
+        post = Post( body=form.post.data, title=form.title.data,published=form.published.data,
                     language=language,
                     author=current_user._get_current_object())
         db.session.add(post)
         db.session.commit()
-        flash(_('Your post is now live!'))
-        return redirect(url_for('main.blog'))
+        if post.published:
+            flash("Your Post is now alive")
+            return redirect(url_for('main.blog'))
+        else:
+            flash("Your Post is saved as Drafts for future editing")
+            return redirect(url_for('main.drafts'))
     return render_template('create.html', title=_('Create'), form=form)
 
 
@@ -97,13 +117,17 @@ def edit(slug):
     if form.validate_on_submit():
         post.body = form.post.data
         post.title = form.title.data
+        post.published = form.published.data
         db.session.commit()
-        flash(_('Your post has being edited successfully!'))
-        return redirect(url_for('main.edit', slug=post.slug))
+        if post.published:
+            flash(_('Your post has being edited successfully!'))
+            return redirect(url_for('main.edit', slug=post.slug))
     elif request.method == 'GET':
         form.post.data = post.body
         form.title.data = post.title
+        form.published.data = post.published
     return render_template( 'edit.html', form=form )
+    
 
 @main.route("/store")
 @login_required
@@ -126,6 +150,7 @@ def upload():
     file = request.files.get("file")
     my_object = storage.upload(file)
     return redirect(url_for("view", object_name=my_object.name))
+    
 
 
 @main.route('/user/<username>')
