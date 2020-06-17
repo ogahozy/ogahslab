@@ -14,7 +14,7 @@ from flask_pagedown import PageDown
 from flask_babel import Babel, lazy_gettext as _l
 from elasticsearch import Elasticsearch
 from flask_simplemde import SimpleMDE
-from flask_cloudy import Storage
+#from flask_cloudy import Storage
 from config import Config
 
 db = SQLAlchemy()
@@ -24,7 +24,7 @@ login.login_view = 'auth.login'
 login.login_message = _l('Please log in to access this page.')
 mail = Mail()
 bootstrap = Bootstrap()
-storage = Storage()
+#storage = Storage()
 moment = Moment()
 babel = Babel()
 pagedown = PageDown()
@@ -35,13 +35,13 @@ providers = bootstrap_basic(embed())
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-    app.config.update({
-    "STORAGE_PROVIDER": "LOCAL",
-    "STORAGE_CONTAINER": "uploads",
-    "STORAGE_KEY": "",
-    "STORAGE_SECRET": "",
-    "STORAGE_SERVER": True
-    })
+ #   app.config.update({
+ #   "STORAGE_PROVIDER": "LOCAL",
+ #   "STORAGE_CONTAINER": "uploads",
+ #   "STORAGE_KEY": "",
+ #   "STORAGE_SECRET": "",
+ #   "STORAGE_SERVER": True
+ #   })
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -52,7 +52,7 @@ def create_app(config_class=Config):
     babel.init_app(app)
     pagedown.init_app(app)
     simplemde.init_app(app)
-    storage.init_app(app)
+  #  storage.init_app(app)
     #providers.init_app(app,db)
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) if app.config['ELASTICSEARCH_URL'] else None
 

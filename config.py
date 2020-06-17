@@ -15,6 +15,8 @@ class Config(object):
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    STREAM_API_KEY = os.environ.get('STREAM_API_KEY')
+    STREAM_SECRET = os.environ.get('STREAM_SECRET')
     WEB_ADMIN = os.environ.get('WEB_ADMIN')
     ADMINS = ['']
     LANGUAGES = ['en', 'es']

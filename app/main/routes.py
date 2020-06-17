@@ -4,17 +4,16 @@ from flask import render_template, flash, redirect, url_for, request, g, \
 from flask_login import current_user, login_required
 from flask_babel import _, get_locale
 from guess_language import guess_language
-from app import db ,storage
+from app import db #,storage
 from . import main
 from app.main.forms import EditProfileForm, PostForm,\
     EditProfileAdminForm, CommentForm,SearchForm
     #,MessageForm
 from app.models import User, Post, Role, Permission, Comment
-#from flask_cloudy import Storage
 #,Message,Notification
 from app.translate import translate
 from app.decorators import admin_required, permission_required
-#storage =Storage()
+
 
 @main.before_app_request
 def before_request():
@@ -101,7 +100,7 @@ def detail(slug):
     page = request.args.get('page', 1, type=int)
     if page == -1:
         page  = (post.comments.count() - 1) // current_app.config['COMMENTS_PER_PAGE'] + 1
-    pagination = post.comments.order_by(Comment.timestamp.asc()).paginate(page, 
+    pagination = post.comments.order_by(Comment.timestamp.asc()).paginate(page,
 					current_app.config['COMMENTS_PER_PAGE'],False)
     comments = pagination.items
     next_url = url_for('main.detail', slug=slug,page=pagination.next_num)if pagination.has_next else None
@@ -127,30 +126,30 @@ def edit(slug):
         form.title.data = post.title
         form.published.data = post.published
     return render_template( 'edit.html', form=form )
-    
 
-@main.route("/store")
-@login_required
-@admin_required
-def store():
-    return render_template("storage.html", storage=storage)
 
-@main.route("/view/<path:object_name>")
-@login_required
-@admin_required
-def view(object_name):
-    obj = storage.get(object_name)
-    print (obj.name)
-    return render_template("view.html", obj=obj)
+#@main.route("/store")
+#@login_required
+#@admin_required
+#def store():
+#    return render_template("storage.html", storage=storage)
 
-@main.route("/upload", methods=["POST"])
-@login_required
-@admin_required
-def upload():
-    file = request.files.get("file")
-    my_object = storage.upload(file)
-    return redirect(url_for("view", object_name=my_object.name))
-    
+#@main.route("/view/<path:object_name>")
+#@login_required
+#@admin_required
+#def view(object_name):
+#    obj = storage.get(object_name)
+#    print (obj.name)
+#    return render_template("view.html", obj=obj)
+
+#@main.route("/upload", methods=["POST"])
+#@login_required
+#@admin_required
+#def upload():
+#    file = request.files.get("file")
+#    my_object = storage.upload(file)
+#    return redirect(url_for("view", object_name=my_object.name))
+
 
 
 @main.route('/user/<username>')
@@ -260,7 +259,7 @@ def translate_text():
 @permission_required(Permission.MODERATE)
 def moderate():
     page = request.args.get('page', 1, type=int)
-    pagination = Comment.query.order_by(Comment.timestamp.desc()).paginate(page, 
+    pagination = Comment.query.order_by(Comment.timestamp.desc()).paginate(page,
                           current_app.config['COMMENTS_PER_PAGE'],False)
     comments = pagination.items
     return render_template('moderate.html',
