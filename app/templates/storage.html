@@ -25,6 +25,23 @@
          <h1>Ogahslab-Storage</h1>
     </div>
 
+{#{% block content %}
+  <div class="container">
+    <div class="col-12-xs">
+      <h3>Storage Info</h3>
+      <p>Created: {{ my_bucket.creation_date }}</p>
+
+      <hr>
+ <table class="table table-striped">
+    <tr>
+    <th>Filename</th>
+   <th> Last Modified</th></tr>
+     {% for f in store %}
+    <tr>
+
+    <td>  {{ f.key }}</td>
+     </td>{{ f.last_modified }}</td></tr>#}
+
 <form action="{{ url_for('main.upload') }}" method="post" enctype="multipart/form-data">
     Select image to upload:
     <input type="file" name="file" id="fileToUpload"> <br>
@@ -34,21 +51,25 @@
 <hr>
 
 <h3>List of files available on the storage:</h3>
-
-<table>
-    <thead>
-        <th>Name</th>
-        <th>Size</th>
-    </thead>
-    <tbody>
+<hr>
+<table class="table table-striped">
+    <tr>
+        <th>Filename</th>
+        <th>Filesize</th>
+    </tr>
+    
         {% for obj in storage %}
         <tr>
             <td><a href="{{ url_for('main.view', object_name=obj.name) }}">{{ obj.name }}</a></td>
-            <td>{{ obj.size }} bytes</td>
+            <td>{{ obj.size}}bytes</td>
         </tr>
+
         {% endfor %}
-    </tbody>
+    </table>
 
 </table>
-
+{#{% endfor %}
+</table>
+</div>
+</div>#}
 {% endblock %}

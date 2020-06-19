@@ -15,8 +15,11 @@ class Config(object):
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    STREAM_API_KEY = os.environ.get('STREAM_API_KEY')
-    STREAM_SECRET = os.environ.get('STREAM_SECRET')
+    # STREAM_API_KEY = os.environ.get('STREAM_API_KEY')
+    # STREAM_SECRET = os.environ.get('STREAM_SECRET')
+    #S3_BUCKET = os.environ.get('S3_BUCKET')
+    #S3_KEY = os.environ.get('S3_KEY')
+    #S3_SECRET = os.environ.get('S3_SECRET_ACCESS_KEY')
     WEB_ADMIN = os.environ.get('WEB_ADMIN')
     ADMINS = ['']
     LANGUAGES = ['en', 'es']

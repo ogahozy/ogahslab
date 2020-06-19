@@ -40,11 +40,11 @@
                        {% endif %}
 			           {%  if current_user.can(Permission.WRITE) %}
                     <li><a href="{{ url_for('main.create') }}">{{_('Create')}}</a></li>
-                   {# <li><a href="{{ url_for('main.store') }}">{{_('Files')}}</a></li>#}
+                    <li><a href="{{ url_for('main.store') }}">{{_('Files')}}</a></li>
                     <li><a href="{{ url_for('main.drafts') }}">{{_('Drafts')}}</a></li>
 			           {% endif %}
 			           {% if current_user.can(Permission.MODERATE) %}
-                    <li><a href="{{ url_for('main.moderate') }}">Moderates</a></li>
+                    <li><a href="{{ url_for('main.moderate') }}">Moderate</a></li>
                 	{% endif %}
 
 			         {% block extra_header %}{% endblock %}

@@ -4,7 +4,9 @@ from flask import render_template, flash, redirect, url_for, request, g, \
 from flask_login import current_user, login_required
 from flask_babel import _, get_locale
 from guess_language import guess_language
-from app import db #,storage
+from app import db  ,storage
+#import boto3
+
 from . import main
 from app.main.forms import EditProfileForm, PostForm,\
     EditProfileAdminForm, CommentForm,SearchForm
@@ -128,27 +130,30 @@ def edit(slug):
     return render_template( 'edit.html', form=form )
 
 
-#@main.route("/store")
-#@login_required
-#@admin_required
-#def store():
-#    return render_template("storage.html", storage=storage)
+@main.route("/store")
+@login_required
+@admin_required
+def store():
+    #s3_resource = boto3.resource('s3')
+    #my_bucket = s3_resource.Bucket(app.config['S3_BUCKET'])
+    #summaries = my_bucket.objects.all()
+    return render_template("storage.html", storage=storage)
 
-#@main.route("/view/<path:object_name>")
-#@login_required
-#@admin_required
-#def view(object_name):
-#    obj = storage.get(object_name)
-#    print (obj.name)
-#    return render_template("view.html", obj=obj)
+@main.route("/view/<path:object_name>")
+@login_required
+@admin_required
+def view(object_name):
+    obj = storage.get(object_name)
+    print (obj.name)
+    return render_template("view.html", obj=obj)
 
-#@main.route("/upload", methods=["POST"])
-#@login_required
-#@admin_required
-#def upload():
-#    file = request.files.get("file")
-#    my_object = storage.upload(file)
-#    return redirect(url_for("view", object_name=my_object.name))
+@main.route("/upload", methods=["POST"])
+@login_required
+@admin_required
+def upload():
+    file = request.files.get("file")
+    my_object = storage.upload(file)
+    return redirect(url_for("view", object_name=my_object.name))
 
 
 
