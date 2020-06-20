@@ -43,8 +43,8 @@ def create_app(config_class=Config):
     app.config.update({
     "STORAGE_PROVIDER": "S3_US_WEST_OREGON",
     "STORAGE_CONTAINER": "ogahslab",
-    "STORAGE_KEY": "AKIAJNTHNLVHXJ4UNETQ",
-    "STORAGE_SECRET": "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",
+    "STORAGE_KEY": "AKIAJNTHNLVH",
+    "STORAGE_SECRET": "adLbSrNsPvRZnjvy0YtbKJOtVPv9",
     "STORAGE_SERVER": True
     })
 
