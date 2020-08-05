@@ -14,7 +14,7 @@ from flask_pagedown import PageDown
 from flask_babel import Babel, lazy_gettext as _l
 from elasticsearch import Elasticsearch
 from flask_simplemde import SimpleMDE
-from flask_cloudy import Storage
+#from flask_cloudy import Storage
 #import boto3
 from config import Config
 #from config.Config import S3_BUCKET, S3_KEY, S3_SECRET
@@ -26,7 +26,7 @@ login.login_view = 'auth.login'
 login.login_message = _l('Please log in to access this page.')
 mail = Mail()
 bootstrap = Bootstrap()
-storage = Storage()
+#storage = Storage()
 moment = Moment()
 babel = Babel()
 pagedown = PageDown()
@@ -38,15 +38,15 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
     #s3 = boto3.resource("s3",
-     #aws_access_key_id = app.config['S3_KEY'],
-     #aws_secret_access_key = app.config['S3_SECRET'])
-    app.config.update({
-    "STORAGE_PROVIDER": "S3_US_WEST_OREGON",
-    "STORAGE_CONTAINER": "ogahslab",
-    "STORAGE_KEY": "AKIAJNTHNLVH",
-    "STORAGE_SECRET": "adLbSrNsPvRZnjvy0YtbKJOtVPv9",
-    "STORAGE_SERVER": True
-    })
+    #aws_access_key_id = app.config['S3_KEY'],
+    #aws_secret_access_key = app.config['S3_SECRET'])
+    #app.config.update({
+    #"STORAGE_PROVIDER": "S3_US_WEST_OREGON",
+    #"STORAGE_CONTAINER": "ogahslab",
+    #"STORAGE_KEY": "AKIAJNTHNLVH",
+    #"STORAGE_SECRET": "adLbSrNsPvRZnjvy0YtbKJOtVPv9",
+    #"STORAGE_SERVER": True
+    #})
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -58,7 +58,7 @@ def create_app(config_class=Config):
     pagedown.init_app(app)
     simplemde.init_app(app)
     #s3.init_app(app)
-    storage.init_app(app)
+    #storage.init_app(app)
     #providers.init_app(app,db)
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) if app.config['ELASTICSEARCH_URL'] else None
 

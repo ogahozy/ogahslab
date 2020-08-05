@@ -373,44 +373,44 @@ class Post(SearchableMixin, db.Model):
     def drafts(cls):
         return Post.query.filter(Post.published == False)
 
-"""
-    @staticmethod
-    def on_changed_body(target, value, oldvalue, initiator):
-        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
-                        'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
-                        'h1', 'h2', 'h3','h4','img','div', 'p','iframe','video','br','span','hr','class']
-        allowed_attrs = {'*':['class'],
-                         'a':['href','rel'],
-                         'img':['src','alt'],
-                         'iframe':['scr','name','width'],
-                         'video':['controls','height','src','width']}
-        target.body_html = bleach.linkify(bleach.clean(
-            markdown(value, output_format='html'),
-            tags=allowed_tags, attributes=allowed_attrs, strip=False))
 
-db.event.listen(Post.body, 'set', Post.on_changed_body)
+   # @staticmethod
+   # def on_changed_body(target, value, oldvalue, initiator):
+   #     allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
+   #                     'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
+   #                     'h1', 'h2', 'h3','h4','img','div', 'p','iframe','video','br','span','hr','class']
+   #     allowed_attrs = {'*':['class'],
+   #                      'a':['href','rel'],
+   #                      'img':['src','alt'],
+   #                      'iframe':['scr','name','width'],
+   #                      'video':['controls','height','src','width']}
+   #     target.body_html = bleach.linkify(bleach.clean(
+   #         markdown(value, output_format='html'),
+   #         tags=allowed_tags, attributes=allowed_attrs, strip=False))
 
-
-class Message(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    body = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-
-    def __repr__(self):
-        return '<Message {}>'.format(self.body)
+#db.event.listen(Post.body, 'set', Post.on_changed_body)
 
 
-class Notification(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(128), index=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    timestamp = db.Column(db.Float, index=True, default=time)
-    payload_json = db.Column(db.Text)
+#class Message(db.Model):
+#    id = db.Column(db.Integer, primary_key=True)
+#    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+#    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+#    body = db.Column(db.String(140))
+#    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
-    def get_data(self):
-        return json.loads(str(self.payload_json))"""
+#    def __repr__(self):
+#        return '<Message {}>'.format(self.body)
+
+
+#class Notification(db.Model):
+#    id = db.Column(db.Integer, primary_key=True)
+#    name = db.Column(db.String(128), index=True)
+#    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+#    timestamp = db.Column(db.Float, index=True, default=time)
+#    payload_json = db.Column(db.Text)
+
+#    def get_data(self):
+#        return json.loads(str(self.payload_json))
 
 
 
