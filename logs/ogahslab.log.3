@@ -1,0 +1,119 @@
+2019-03-14 15:44:23,644 INFO: Ogahslab startup [in /home/ogah/ogahslab/app/__init__.py:106]
+2019-03-14 15:44:47,463 ERROR: Exception on /auth/login [POST] [in /home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1193, in _execute_context
+    context)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 507, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: user
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ogah/ogahslab/app/auth/routes.py", line 24, in login
+    user = User.query.filter_by(username=form.username.data).first()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2789, in first
+    ret = list(self[0:1])
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2581, in __getitem__
+    return list(res)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2889, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2912, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 948, in execute
+    return meth(self, multiparams, params)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 269, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1060, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1200, in _execute_context
+    context)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1413, in _handle_dbapi_exception
+    exc_info
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 186, in reraise
+    raise value.with_traceback(tb)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1193, in _execute_context
+    context)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 507, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: user [SQL: 'SELECT user.id AS user_id, user.username AS user_username, user.email AS user_email, user.password_hash AS user_password_hash, user.role_id AS user_role_id, user.about_me AS user_about_me, user.last_seen AS user_last_seen, user.token AS user_token, user.token_expiration AS user_token_expiration \nFROM user \nWHERE user.username = ?\n LIMIT ? OFFSET ?'] [parameters: ('ogahozy', 1, 0)] (Background on this error at: http://sqlalche.me/e/e3q8)
+2019-03-14 15:46:32,473 INFO: Ogahslab startup [in /home/ogah/ogahslab/app/__init__.py:106]
+2019-03-14 15:46:47,427 INFO: Ogahslab startup [in /home/ogah/ogahslab/app/__init__.py:106]
+2019-03-14 15:47:32,809 INFO: Ogahslab startup [in /home/ogah/ogahslab/app/__init__.py:106]
+2019-03-15 13:58:55,843 INFO: Ogahslab startup [in /home/ogah/ogahslab/app/__init__.py:106]
+2019-03-15 14:02:56,386 INFO: Ogahslab startup [in /home/ogah/ogahslab/app/__init__.py:106]
+2019-03-21 15:03:48,927 INFO: Ogahslab startup [in /home/ogah/ogahslab/app/__init__.py:106]
+2019-03-23 13:53:18,119 INFO: Ogahslab startup [in /home/ogah/ogahslab/app/__init__.py:106]
+2019-03-23 14:29:24,036 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:106]
+2019-03-23 14:45:04,706 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 15:12:43,167 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 15:12:52,819 ERROR: Exception on /blog [GET] [in /home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py:1560]
+Traceback (most recent call last):
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1193, in _execute_context
+    context)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 507, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: post.published
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ogah/ogahslabz/app/main/routes.py", line 43, in blog
+    page, current_app.config['POSTS_PER_PAGE'], False)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/flask_sqlalchemy/__init__.py", line 491, in paginate
+    items = self.limit(per_page).offset((page - 1) * per_page).all()
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2737, in all
+    return list(self)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2889, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2912, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 948, in execute
+    return meth(self, multiparams, params)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 269, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1060, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1200, in _execute_context
+    context)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1413, in _handle_dbapi_exception
+    exc_info
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 186, in reraise
+    raise value.with_traceback(tb)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1193, in _execute_context
+    context)
+  File "/home/ogah/.virtualenvs/web/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 507, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: post.published [SQL: 'SELECT post.id AS post_id, post.title AS post_title, post.slug AS post_slug, post.body AS post_body, post.body_html AS post_body_html, post.timestamp AS post_timestamp, post.published AS post_published, post.language AS post_language, post.author_id AS post_author_id \nFROM post ORDER BY post.timestamp DESC\n LIMIT ? OFFSET ?'] [parameters: (10, 0)] (Background on this error at: http://sqlalche.me/e/e3q8)
+2019-03-23 15:14:07,857 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 15:14:35,895 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 15:15:33,394 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
+2019-03-23 15:15:41,669 INFO: Ogahslab startup [in /home/ogah/ogahslabz/app/__init__.py:111]
