@@ -1,7 +1,7 @@
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}
-{% if title %}{{ title }} - Ogahslab{% else %}{{_('Welcome to Microblog')}}{% endif %}
+{% if title %}{{ title }} - Ogahslab{% else %}{{_('Welcome to Trial Home')}}{% endif %}
 {% endblock %}
 
 
@@ -94,11 +94,11 @@
 	            <aside class="col-md-3 blog-sidebar">
                         <div class="p-3 mb-3 bg-light rounded">
                             <h4 class="font-italic"><b>About Me</b>
-                            <p class="mb-1"> I am Engr. Ogah S.O, <em>An Internet of Things hobbyist.</em> 
-                                I have passion in teaching and practicing computer engineering and electronics. 
+                            <p class="mb-1"> I am Engr. Ogah S.O, <em>A Data Scientist,AI and  IoT  hobbyist.</em> 
+                                I have passion in learning by teaching and practicing computer engineering and electronics. 
                                 After my first and second degree in this field of discipline, 
                                 I decided to come up here to continue learning and teaching. 
-                                Happing learning. <em> Your remarks and contributions is highly welcomed.</em>
+                                Happy learning. <em> Your remarks and contributions is highly welcomed.</em>
                             <H5><b>TOGETHER WE CAN MAKE A BETTER LEARNING </b></H5>
                             </p></h4>
                         </div>
@@ -127,7 +127,7 @@
 
 	<footer>
         <hr/>
-        <p>Ogahslab, &copy; 2019</p>
+        <p>Ogahslab, &copy; 2020</p>
     </footer>
 
 {% endblock %}
@@ -191,6 +191,8 @@ $(function () {
                 }
             );
         });
+
+
         {#
      function set_message_count(n) {
             $('#message_count').text(n);
@@ -213,5 +215,6 @@ $(function () {
         });
         {% endif %}
         #}
+
     </script>
 {% endblock %}

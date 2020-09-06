@@ -10,7 +10,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    MAIL_SERVER = os.environ.get('MAIL_SERVER','smtp.googlemail.com')
+    MAIL_SERVER = os.environ.get('MAIL_SERVER','smtp.sendgrid.net')
     MAIL_PORT = int(os.environ.get('MAIL_PORT','587'))
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
@@ -21,7 +21,7 @@ class Config(object):
     #S3_KEY = os.environ.get('S3_KEY')
     #S3_SECRET = os.environ.get('S3_SECRET_ACCESS_KEY')
     WEB_ADMIN = os.environ.get('WEB_ADMIN')
-    ADMINS = ['']
+    ADMINS = ['admin@ogahslab.com']
     LANGUAGES = ['en', 'es']
     MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
