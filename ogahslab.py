@@ -6,7 +6,7 @@ from app import create_app, db, cli
 from app.models import User, Post, Permission, Role,Comment
 #,Message , Notification
 
-app = create_app()
+app = create_app( os.getenv('FLASK_CONFIG'))
 migrate = Migrate(app, db)
 cli.register(app)
 
