@@ -20,8 +20,8 @@ class Config(object):
     #S3_BUCKET = os.environ.get('S3_BUCKET')
     #S3_KEY = os.environ.get('S3_KEY')
     #S3_SECRET = os.environ.get('S3_SECRET_ACCESS_KEY')
-    WEB_ADMIN = os.environ.get('WEB_ADMIN')
-    ADMINS = ['admin@ogahslab.com']
+    WEB_ADMIN = os.environ.get('WEB_ADMIN') # put you email here
+    ADMINS = ['admin@ogahslab.com'] # put your email here
     LANGUAGES = ['en', 'es']
     MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
