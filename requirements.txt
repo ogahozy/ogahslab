@@ -16,7 +16,6 @@ Flask==1.0.0
 Flask-Babel==0.11.2
 Flask-Bootstrap==3.3.7.1
 #Flask-Cloudy==1.0.1
-#Flask-Dropzone==1.5.3
 Flask-HTTPAuth==3.2.4
 Flask-Login==0.4.1
 Flask-Mail==0.9.1
