@@ -2,7 +2,7 @@ alembic==0.9.8
 apache-libcloud==0.20.1
 astroid==2.1.0
 awesome-slugify==1.6.5
-Babel==2.5.3
+Babel==2.9.1
 backports.ssl-match-hostname==3.7.0.1
 beautifulsoup4==4.7.1
 bleach>=3.1.2
