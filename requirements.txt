@@ -41,7 +41,7 @@ MarkupSafe==1.1.1
 mccabe==0.6.1
 micawber==0.4.0
 peewee==3.9.2
-PyJWT==1.6.0
+PyJWT==2.4.0
 pylint==2.2.2
 python-dateutil==2.6.1
 python-dotenv==0.8.2
